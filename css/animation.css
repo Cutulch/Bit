@@ -1,0 +1,77 @@
+/*Анимации*/
+.title.element-animation {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 1s;
+}
+
+.title.element-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.form.element-animation {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 1s;
+}
+
+.form.element-show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.btn.element-animation {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s;
+}
+
+.btn.element-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mentors__card:first-child.element-animation {
+  opacity: 0;
+  transform: translate(-20px, 20px);
+  transition: all 1s;
+}
+
+.mentors__card:first-child.element-show {
+  opacity: 1;
+  transform: translate(0);
+}
+
+.mentors__card:last-child.element-animation {
+  opacity: 0;
+  transform: translate(20px, 20px);
+  transition: all 1s;
+}
+
+.mentors__card:last-child.element-show {
+  opacity: 1;
+  transform: translate(0);
+}
+
+.mentors__card:nth-child(2).element-animation {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s;
+}
+
+.mentors__card:nth-child(2).element-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contacts__info.element-animation {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 1s;
+}
+
+.contacts__info.element-show {
+  opacity: 1;
+  transform: translateX(0px);
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+Host: https://bit-rnd.ru/
+Sitemap: https://bit-rnd.ru/sitemap.xml
