@@ -1320,7 +1320,7 @@ button {
 
 .reviews__heading {
   max-width: 850px;
-  margin: 0 auto 28px;
+  margin: 28px auto 0;
   text-align: center;
 }
 
@@ -2616,7 +2616,7 @@ button {
   .reviews__summary {
     align-items: stretch;
     flex-direction: column;
-    margin-bottom: 18px;
+    margin: 18px auto 0;
   }
 
   .reviews__summary a {
