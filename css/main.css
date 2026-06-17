@@ -296,7 +296,7 @@ button {
 .hero {
   position: relative;
   min-height: 720px;
-  padding: 96px var(--pad) 72px;
+  padding: 140px var(--pad) 72px;
   overflow: hidden;
   color: var(--ink);
   background:
