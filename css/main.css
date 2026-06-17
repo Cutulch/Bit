@@ -2172,7 +2172,29 @@ button {
   background: rgba(255, 240, 241, 0.92);
 }
 
+.site-footer__rating {
+  grid-column: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  padding: 1px;
+  border: 1px solid rgba(132, 18, 45, 0.38);
+  border-radius: 12px;
+  background: rgba(132, 18, 45, 0.08);
+  box-shadow: 0 10px 24px rgba(132, 18, 45, 0.1);
+}
+
+.site-footer__rating iframe {
+  width: 150px;
+  height: 50px;
+  display: block;
+  border: 0;
+  border-radius: 9px;
+  background: var(--white);
+}
+
 .site-footer__legal {
+  grid-column: 2;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
@@ -2292,8 +2314,14 @@ button {
   }
 
   .site-footer__legal {
+    grid-column: auto;
     justify-content: flex-start;
     text-align: left;
+  }
+
+  .site-footer__rating {
+    grid-column: auto;
+    justify-self: start;
   }
 }
 
@@ -2728,6 +2756,11 @@ button {
   }
 
   .footer-nav a {
+    justify-content: center;
+  }
+
+  .site-footer__rating {
+    width: 100%;
     justify-content: center;
   }
 
