@@ -17,7 +17,7 @@ $name = normalizeInput(getPostValue(['Имя', 'name']));
 $phoneRaw = normalizeInput(getPostValue(['Телефон', 'phone']));
 $phone = normalizePhone($phoneRaw);
 $message = normalizeInput(getPostValue(['Сообщение', 'message']));
-$instrument = normalizeInput(getPostValue(['Инструмент', 'instrument']));
+$direction = normalizeInput(getPostValue(['Направление', 'Инструмент', 'direction', 'instrument']));
 $teacher = normalizeInput(getPostValue(['Наставник', 'teacher']));
 $branch = normalizeInput(getPostValue(['Адрес', 'Филиал', 'branch']));
 
@@ -50,17 +50,17 @@ if ($phone === '' || !preg_match('/^\+?\d{10,15}$/', $phone)) {
   respond(422, false, 'Поле "Телефон" должно содержать 10-15 цифр. Допускаются пробелы, скобки, дефисы и "+" в начале.');
 }
 
-if ($instrument !== '') {
-  if (stringLength($instrument) > 80) {
-    respond(422, false, 'Поле "Инструмент" слишком длинное.');
+if ($direction !== '') {
+  if (stringLength($direction) > 80) {
+    respond(422, false, 'Поле "Направление" слишком длинное.');
   }
 
-  if (containsLink($instrument)) {
-    respond(422, false, 'Поле "Инструмент" не должно содержать ссылки.');
+  if (containsLink($direction)) {
+    respond(422, false, 'Поле "Направление" не должно содержать ссылки.');
   }
 
-  if (!preg_match('/^[\p{L}\s(),-]+$/u', $instrument)) {
-    respond(422, false, 'Поле "Инструмент" содержит недопустимые символы.');
+  if (!preg_match('/^[\p{L}\s(),-]+$/u', $direction)) {
+    respond(422, false, 'Поле "Направление" содержит недопустимые символы.');
   }
 }
 
@@ -108,8 +108,8 @@ if ($message !== '') {
   }
 }
 
-if ($message === '' && $instrument === '') {
-  respond(422, false, 'Заполните поле "Сообщение" или "Инструмент".');
+if ($message === '' && $direction === '') {
+  respond(422, false, 'Заполните поле "Комментарий" или "Направление".');
 }
 
 $contentParts = [
@@ -122,8 +122,8 @@ if ($teacher !== '') {
   $contentParts[] = '<b>Наставник</b>: <i>' . escapeHtml($teacher) . '</i>';
 }
 
-if ($instrument !== '') {
-  $contentParts[] = '<b>Инструмент</b>: <i>' . escapeHtml($instrument) . '</i>';
+if ($direction !== '') {
+  $contentParts[] = '<b>Направление</b>: <i>' . escapeHtml($direction) . '</i>';
 }
 
 $contentParts[] = '<b>Адрес</b>: <i>' . escapeHtml($branch) . '</i>';

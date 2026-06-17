@@ -22,12 +22,20 @@
         "@context": "https://schema.org",
         "@type": "MusicSchool",
         "name": "Музыкальная студия БИТ",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "просп. Солженицына, 15/1с2",
-          "addressLocality": "Ростов-на-Дону",
-          "addressCountry": "RU"
-        },
+        "address": [
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "просп. Солженицына, 15/1с2",
+            "addressLocality": "Ростов-на-Дону",
+            "addressCountry": "RU"
+          },
+          {
+            "@type": "PostalAddress",
+            "streetAddress": "ул. 26-я Линия, 10",
+            "addressLocality": "Ростов-на-Дону",
+            "addressCountry": "RU"
+          }
+        ],
         "telephone": "+7-928-652-54-09",
         "url": "https://bit-rnd.ru/",
         "sameAs": [
@@ -660,7 +668,7 @@
               </div>
 
               <label for="lead-direction">Направление</label>
-              <select id="lead-direction" name="Инструмент" required data-direction-select>
+              <select id="lead-direction" name="Направление" required data-direction-select>
                 <option value="" disabled selected>Выберите направление</option>
                 <option value="Фортепиано">Фортепиано</option>
                 <option value="Теория (сольфеджио, гармония, ЭТМ)">
