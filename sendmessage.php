@@ -5,6 +5,8 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 
 const NAME_MAX_LENGTH = 60;
+const TEACHER_MAX_LENGTH = 60;
+const BRANCH_MAX_LENGTH = 80;
 const MESSAGE_MAX_LENGTH = 400;
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
@@ -16,6 +18,8 @@ $phoneRaw = normalizeInput(getPostValue(['Телефон', 'phone']));
 $phone = normalizePhone($phoneRaw);
 $message = normalizeInput(getPostValue(['Сообщение', 'message']));
 $instrument = normalizeInput(getPostValue(['Инструмент', 'instrument']));
+$teacher = normalizeInput(getPostValue(['Наставник', 'teacher']));
+$branch = normalizeInput(getPostValue(['Адрес', 'Филиал', 'branch']));
 
 if ($name === '' || $phoneRaw === '') {
   respond(422, false, 'Заполните обязательные поля: имя и телефон.');
@@ -60,6 +64,36 @@ if ($instrument !== '') {
   }
 }
 
+if ($teacher !== '') {
+  if (stringLength($teacher) > TEACHER_MAX_LENGTH) {
+    respond(422, false, 'Поле "Наставник" слишком длинное.');
+  }
+
+  if (containsLink($teacher)) {
+    respond(422, false, 'Поле "Наставник" не должно содержать ссылки.');
+  }
+
+  if (!preg_match('/^[\p{L}\s-]+$/u', $teacher)) {
+    respond(422, false, 'Поле "Наставник" содержит недопустимые символы.');
+  }
+}
+
+if ($branch === '') {
+  respond(422, false, 'Выберите адрес филиала.');
+}
+
+if (stringLength($branch) > BRANCH_MAX_LENGTH) {
+  respond(422, false, 'Поле "Адрес" слишком длинное.');
+}
+
+if (containsLink($branch)) {
+  respond(422, false, 'Поле "Адрес" не должно содержать ссылки.');
+}
+
+if (!preg_match('/^[\p{L}\p{N}\s.,\/-]+$/u', $branch)) {
+  respond(422, false, 'Поле "Адрес" содержит недопустимые символы.');
+}
+
 if ($message !== '') {
   if (stringLength($message) > MESSAGE_MAX_LENGTH) {
     respond(422, false, 'Поле "Сообщение" слишком длинное. Максимум 400 символов.');
@@ -84,9 +118,15 @@ $contentParts = [
   '<b>Телефон</b>: <i>' . escapeHtml($phone) . '</i>',
 ];
 
+if ($teacher !== '') {
+  $contentParts[] = '<b>Наставник</b>: <i>' . escapeHtml($teacher) . '</i>';
+}
+
 if ($instrument !== '') {
   $contentParts[] = '<b>Инструмент</b>: <i>' . escapeHtml($instrument) . '</i>';
 }
+
+$contentParts[] = '<b>Адрес</b>: <i>' . escapeHtml($branch) . '</i>';
 
 if ($message !== '') {
   $contentParts[] = '<b>Сообщение</b>: <i>' . escapeHtml($message) . '</i>';
