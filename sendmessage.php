@@ -8,6 +8,7 @@ const NAME_MAX_LENGTH = 60;
 const TEACHER_MAX_LENGTH = 60;
 const BRANCH_MAX_LENGTH = 80;
 const MESSAGE_MAX_LENGTH = 400;
+const TELEGRAM_TIMEOUT_SECONDS = 8;
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
   respond(405, false, 'Метод не поддерживается.');
@@ -20,9 +21,14 @@ $message = normalizeInput(getPostValue(['Сообщение', 'message']));
 $direction = normalizeInput(getPostValue(['Направление', 'Инструмент', 'direction', 'instrument']));
 $teacher = normalizeInput(getPostValue(['Наставник', 'teacher']));
 $branch = normalizeInput(getPostValue(['Адрес', 'Филиал', 'branch']));
+$consent = normalizeInput(getPostValue(['Согласие', 'agree', 'privacy_agree']));
 
 if ($name === '' || $phoneRaw === '') {
   respond(422, false, 'Заполните обязательные поля: имя и телефон.');
+}
+
+if (!isConsentAccepted($consent)) {
+  respond(422, false, 'Подтвердите согласие на обработку персональных данных.');
 }
 
 if (containsLink($name)) {
@@ -132,17 +138,27 @@ if ($message !== '') {
   $contentParts[] = '<b>Сообщение</b>: <i>' . escapeHtml($message) . '</i>';
 }
 
-$apiToken = '6560849098:AAF8Onwn-kuqwoabxK1FzrcmfVIXsIoKxeo';
+$telegramConfig = loadTelegramConfig(__DIR__ . '/config.private.php');
+$apiToken = getConfigValue($telegramConfig, 'TELEGRAM_BOT_TOKEN');
+$chatId = getConfigValue($telegramConfig, 'TELEGRAM_CHAT_ID');
+
+if ($apiToken === '' || $chatId === '') {
+  respond(500, false, 'Отправка временно недоступна. Не настроены параметры Telegram.');
+}
+
+if (!preg_match('/^\d{7,12}:[A-Za-z0-9_-]{30,}$/', $apiToken)) {
+  respond(500, false, 'Отправка временно недоступна. Некорректный токен Telegram.');
+}
+
 $data = [
-  'chat_id' => '-1002078304770',
+  'chat_id' => $chatId,
   'text' => implode("\n", $contentParts),
   'parse_mode' => 'HTML',
 ];
 
-$url = 'https://api.telegram.org/bot' . $apiToken . '/sendMessage?' . http_build_query($data);
-$response = @file_get_contents($url);
+$telegramResult = sendTelegramMessage($apiToken, $data);
 
-if ($response === false) {
+if (!$telegramResult['success']) {
   respond(500, false, 'Не удалось отправить сообщение. Попробуйте позже.');
 }
 
@@ -176,6 +192,96 @@ function normalizeInput(string $value): string
 {
   $value = trim($value);
   return preg_replace('/\s+/u', ' ', $value) ?? '';
+}
+
+function isConsentAccepted(string $value): bool
+{
+  return in_array(mbStringToLower($value), ['1', 'yes', 'on', 'true', 'да'], true);
+}
+
+function loadTelegramConfig(string $path): array
+{
+  if (!is_file($path)) {
+    return [];
+  }
+
+  $config = require $path;
+  return is_array($config) ? $config : [];
+}
+
+function getConfigValue(array $config, string $key): string
+{
+  $envValue = getenv($key);
+  if (is_string($envValue) && trim($envValue) !== '') {
+    return trim($envValue);
+  }
+
+  $configValue = $config[$key] ?? '';
+  if (is_scalar($configValue)) {
+    return trim((string) $configValue);
+  }
+
+  return '';
+}
+
+function sendTelegramMessage(string $apiToken, array $data): array
+{
+  $url = 'https://api.telegram.org/bot' . $apiToken . '/sendMessage';
+  $payload = http_build_query($data);
+
+  if (function_exists('curl_init')) {
+    $curl = curl_init($url);
+    if ($curl === false) {
+      return ['success' => false, 'error' => 'curl_init_failed'];
+    }
+
+    curl_setopt_array($curl, [
+      CURLOPT_POST => true,
+      CURLOPT_POSTFIELDS => $payload,
+      CURLOPT_HTTPHEADER => ['Content-Type: application/x-www-form-urlencoded'],
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_CONNECTTIMEOUT => TELEGRAM_TIMEOUT_SECONDS,
+      CURLOPT_TIMEOUT => TELEGRAM_TIMEOUT_SECONDS,
+    ]);
+
+    $responseBody = curl_exec($curl);
+    $curlError = curl_error($curl);
+    $httpCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    curl_close($curl);
+
+    if (!is_string($responseBody) || $responseBody === '' || $curlError !== '' || $httpCode >= 400) {
+      return ['success' => false, 'error' => 'telegram_request_failed'];
+    }
+
+    return parseTelegramResponse($responseBody);
+  }
+
+  $context = stream_context_create([
+    'http' => [
+      'method' => 'POST',
+      'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
+      'content' => $payload,
+      'timeout' => TELEGRAM_TIMEOUT_SECONDS,
+      'ignore_errors' => true,
+    ],
+  ]);
+
+  $responseBody = @file_get_contents($url, false, $context);
+  if (!is_string($responseBody) || $responseBody === '') {
+    return ['success' => false, 'error' => 'telegram_request_failed'];
+  }
+
+  return parseTelegramResponse($responseBody);
+}
+
+function parseTelegramResponse(string $responseBody): array
+{
+  $decoded = json_decode($responseBody, true);
+  if (!is_array($decoded) || ($decoded['ok'] ?? false) !== true) {
+    return ['success' => false, 'error' => 'telegram_response_not_ok'];
+  }
+
+  return ['success' => true];
 }
 
 function normalizePhone(string $value): string
@@ -212,6 +318,15 @@ function normalizePhone(string $value): string
 function containsLink(string $value): bool
 {
   return (bool) preg_match('/(?:https?:\/\/|www\.|t\.me\/|telegram\.me\/|(?:[a-z0-9-]+\.)+[a-z]{2,})/iu', $value);
+}
+
+function mbStringToLower(string $value): string
+{
+  if (function_exists('mb_strtolower')) {
+    return mb_strtolower($value, 'UTF-8');
+  }
+
+  return strtolower($value);
 }
 
 function countWords(string $value): int

@@ -12,7 +12,7 @@
       name="keywords"
       content="музыкальная студия БИТ, уроки музыки Ростов-на-Дону, фортепиано, гитара, вокал, саксофон, теория музыки"
     />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content="index, follow" />
     <meta name="yandex-verification" content="9824ab58a3e436a2" />
     <link rel="icon" href="./img/icons/favicon.ico" type="image/x-icon" />
     <link rel="canonical" href="https://bit-rnd.ru/" />
@@ -181,6 +181,27 @@
                   "@type": "Offer",
                   "itemOffered": {
                     "@type": "Service",
+                    "name": "Уроки баяна"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Уроки укулеле"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Уроки барабанов"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
                     "name": "Уроки саксофона"
                   }
                 },
@@ -282,7 +303,7 @@
 
       <nav class="main-nav" aria-label="Главное меню">
         <a class="is-active" href="#top">Главная</a>
-        <a href="#programs">Направления</a>
+        <a href="#instruments">Инструменты</a>
         <a href="#teachers">Наставники</a>
         <a href="#reviews">Отзывы</a>
         <a href="#contacts">Контакты</a>
@@ -305,7 +326,7 @@
 
     <div class="mobile-panel" data-mobile-panel>
       <a href="#top">Главная</a>
-      <a href="#programs">Направления</a>
+      <a href="#instruments">Инструменты</a>
       <a href="#teachers">Наставники</a>
       <a href="#reviews">Отзывы</a>
       <a href="#contacts">Контакты</a>
@@ -358,55 +379,63 @@
           </span>
         </div>
 
-        <div class="hero__programs" aria-label="Направления студии">
-          <h2 class="hero__programs-title" data-reveal>Мы обучаем</h2>
-          <div class="instrument-grid">
-            <article class="instrument-card" data-reveal>
-              <img class="instrument-card__icon" src="./img/icons/learn-piano.svg" alt="" />
-              <span>Фортепиано</span>
+        <div class="hero__directions" id="directions" aria-label="Направления студии">
+          <h2 class="hero__directions-title" data-reveal>Направления</h2>
+          <div class="direction-grid">
+            <article class="direction-card" data-reveal>
+              <img class="direction-card__icon" src="./img/icons/learn-piano.svg" alt="" />
+              <strong>Клавишные</strong>
             </article>
-            <article class="instrument-card" data-reveal>
-              <img class="instrument-card__icon" src="./img/icons/learn-theory.svg" alt="" />
-              <span>Теория</span>
+            <article class="direction-card" data-reveal>
+              <img class="direction-card__icon" src="./img/icons/learn-classical-guitar.svg" alt="" />
+              <strong>Струнные</strong>
             </article>
-            <article class="instrument-card" data-reveal>
-              <img class="instrument-card__icon" src="./img/icons/learn-classical-guitar.svg" alt="" />
-              <span>Классическая гитара</span>
+            <article class="direction-card" data-reveal>
+              <img class="direction-card__icon" src="./img/icons/teacher-bayan.svg" alt="" />
+              <strong>Народные</strong>
             </article>
-            <article class="instrument-card" data-reveal>
-              <img class="instrument-card__icon" src="./img/icons/learn-electric-guitar.svg" alt="" />
-              <span>Электрогитара</span>
+            <article class="direction-card" data-reveal>
+              <img class="direction-card__icon" src="./img/icons/learn-saxophone.svg" alt="" />
+              <strong>Духовые</strong>
             </article>
-            <article class="instrument-card" data-reveal>
-              <img class="instrument-card__icon" src="./img/icons/learn-acoustic-guitar.svg" alt="" />
-              <span>Акустическая гитара</span>
+            <article class="direction-card" data-reveal>
+              <img class="direction-card__icon" src="./img/icons/learn-drums.svg" alt="" />
+              <strong>Ударные</strong>
             </article>
-            <article class="instrument-card" data-reveal>
-              <img class="instrument-card__icon" src="./img/icons/learn-vocal.svg" alt="" />
-              <span>Вокал</span>
+            <article class="direction-card" data-reveal>
+              <img class="direction-card__icon" src="./img/icons/learn-vocal.svg" alt="" />
+              <strong>Вокал</strong>
+            </article>
+            <article class="direction-card" data-reveal>
+              <img class="direction-card__icon" src="./img/icons/teacher-scenicheskaya-rech.svg" alt="" />
+              <strong>Сцена и речь</strong>
+            </article>
+            <article class="direction-card" data-reveal>
+              <img class="direction-card__icon" src="./img/icons/learn-theory.svg" alt="" />
+              <strong>Теория</strong>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="programs section" id="programs">
-        <span class="programs-note programs-note--one" aria-hidden="true">&#9835;</span>
-        <span class="programs-note programs-note--two" aria-hidden="true">&#9834;</span>
-        <span class="programs-note programs-note--three" aria-hidden="true">&#9835;</span>
+      <section class="instruments section" id="instruments">
+        <span class="instruments-note instruments-note--one" aria-hidden="true">&#9835;</span>
+        <span class="instruments-note instruments-note--two" aria-hidden="true">&#9834;</span>
+        <span class="instruments-note instruments-note--three" aria-hidden="true">&#9835;</span>
 
-        <div class="section-shell programs__shell">
-          <div class="section-heading programs__heading">
-            <h2 data-reveal>Направления</h2>
-            <p class="programs__lead" data-reveal>
-              Выберите инструмент или вокал, а мы подберём педагога, темп занятий и программу под ваш уровень.
+        <div class="section-shell instruments__shell">
+          <div class="section-heading instruments__heading">
+            <h2 data-reveal>Инструменты</h2>
+            <p class="instruments__lead" data-reveal>
+              Выберите конкретный инструмент или вокал, а мы подберём педагога, темп занятий и программу под ваш уровень.
             </p>
           </div>
 
-          <div class="program-grid">
-            <article class="program-card" data-reveal>
-              <div class="program-card__top">
-                <img class="program-card__icon" src="./img/icons/learn-piano.svg" alt="" />
-                <span class="program-card__number">01</span>
+          <div class="instruments-grid">
+            <article class="instrument-card" data-reveal>
+              <div class="instrument-card__top">
+                <img class="instrument-card__icon" src="./img/icons/learn-piano.svg" alt="" />
+                <span class="instrument-card__number">01</span>
               </div>
               <h3>Фортепиано</h3>
               <p>
@@ -414,10 +443,10 @@
                 уверенного чтения нот и любимого репертуара.
               </p>
             </article>
-            <article class="program-card" data-reveal>
-              <div class="program-card__top">
-                <img class="program-card__icon" src="./img/icons/learn-theory.svg" alt="" />
-                <span class="program-card__number">02</span>
+            <article class="instrument-card" data-reveal>
+              <div class="instrument-card__top">
+                <img class="instrument-card__icon" src="./img/icons/learn-theory.svg" alt="" />
+                <span class="instrument-card__number">02</span>
               </div>
               <h3>Теория музыки</h3>
               <p>
@@ -425,10 +454,10 @@
                 устроена музыка и почему она работает.
               </p>
             </article>
-            <article class="program-card" data-reveal>
-              <div class="program-card__top">
-                <img class="program-card__icon" src="./img/icons/learn-classical-guitar.svg" alt="" />
-                <span class="program-card__number">03</span>
+            <article class="instrument-card" data-reveal>
+              <div class="instrument-card__top">
+                <img class="instrument-card__icon" src="./img/icons/learn-classical-guitar.svg" alt="" />
+                <span class="instrument-card__number">03</span>
               </div>
               <h3>Классическая гитара</h3>
               <p>
@@ -436,20 +465,20 @@
                 первых занятий.
               </p>
             </article>
-            <article class="program-card" data-reveal>
-              <div class="program-card__top">
-                <img class="program-card__icon" src="./img/icons/learn-electric-guitar.svg" alt="" />
-                <span class="program-card__number">04</span>
+            <article class="instrument-card" data-reveal>
+              <div class="instrument-card__top">
+                <img class="instrument-card__icon" src="./img/icons/learn-electric-guitar.svg" alt="" />
+                <span class="instrument-card__number">04</span>
               </div>
               <h3>Электрогитара</h3>
               <p>
                 Ритм, атака, драйв и звучание, которое хочется включить громче.
               </p>
             </article>
-            <article class="program-card" data-reveal>
-              <div class="program-card__top">
-                <img class="program-card__icon" src="./img/icons/learn-acoustic-guitar.svg" alt="" />
-                <span class="program-card__number">05</span>
+            <article class="instrument-card" data-reveal>
+              <div class="instrument-card__top">
+                <img class="instrument-card__icon" src="./img/icons/learn-acoustic-guitar.svg" alt="" />
+                <span class="instrument-card__number">05</span>
               </div>
               <h3>Акустическая гитара</h3>
               <p>
@@ -457,10 +486,43 @@
                 для себя и друзей.
               </p>
             </article>
-            <article class="program-card" data-reveal>
-              <div class="program-card__top">
-                <img class="program-card__icon" src="./img/icons/learn-saxophone.svg" alt="" />
-                <span class="program-card__number">06</span>
+            <article class="instrument-card" data-reveal>
+              <div class="instrument-card__top">
+                <img class="instrument-card__icon" src="./img/icons/teacher-bayan.svg" alt="" />
+                <span class="instrument-card__number">06</span>
+              </div>
+              <h3>Баян</h3>
+              <p>
+                Глубокое дыхание меха, чистая координация рук и выразительный
+                звук для народной и современной музыки.
+              </p>
+            </article>
+            <article class="instrument-card" data-reveal>
+              <div class="instrument-card__top">
+                <img class="instrument-card__icon" src="./img/icons/learn-acoustic-guitar.svg" alt="" />
+                <span class="instrument-card__number">07</span>
+              </div>
+              <h3>Укулеле</h3>
+              <p>
+                Лёгкий старт, простые аккорды и яркое звучание для песен,
+                которые хочется сыграть уже на первых занятиях.
+              </p>
+            </article>
+            <article class="instrument-card" data-reveal>
+              <div class="instrument-card__top">
+                <img class="instrument-card__icon" src="./img/icons/learn-drums.svg" alt="" />
+                <span class="instrument-card__number">08</span>
+              </div>
+              <h3>Барабаны</h3>
+              <p>
+                Чувство ритма, координация, грув и уверенность, с которой
+                музыка начинает держаться на вашем пульсе.
+              </p>
+            </article>
+            <article class="instrument-card" data-reveal>
+              <div class="instrument-card__top">
+                <img class="instrument-card__icon" src="./img/icons/learn-saxophone.svg" alt="" />
+                <span class="instrument-card__number">09</span>
               </div>
               <h3>Саксофон</h3>
               <p>
@@ -468,10 +530,10 @@
                 начинает говорить вашим голосом.
               </p>
             </article>
-            <article class="program-card" data-reveal>
-              <div class="program-card__top">
-                <img class="program-card__icon" src="./img/icons/learn-vocal.svg" alt="" />
-                <span class="program-card__number">07</span>
+            <article class="instrument-card" data-reveal>
+              <div class="instrument-card__top">
+                <img class="instrument-card__icon" src="./img/icons/learn-vocal.svg" alt="" />
+                <span class="instrument-card__number">10</span>
               </div>
               <h3>Вокал</h3>
               <p>
@@ -481,18 +543,18 @@
             </article>
           </div>
 
-          <div class="programs__cta" data-reveal>
-            <span class="programs__cta-line" aria-hidden="true"></span>
-            <a class="hero-button programs__button" href="#entry" data-form-default>
+          <div class="instruments__cta" data-reveal>
+            <span class="instruments__cta-line" aria-hidden="true"></span>
+            <a class="hero-button instruments__button" href="#entry" data-form-default>
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <rect x="3" y="5" width="18" height="16" rx="2"></rect>
                 <path
                   d="M8 3v4M16 3v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"
                 ></path>
               </svg>
-              <span>Подобрать направление</span>
+              <span>Подобрать инструмент</span>
             </a>
-            <span class="programs__cta-line" aria-hidden="true"></span>
+            <span class="instruments__cta-line" aria-hidden="true"></span>
           </div>
         </div>
       </section>
@@ -905,6 +967,9 @@
                 <option value="Классическая гитара">Классическая гитара</option>
                 <option value="Электрогитара">Электрогитара</option>
                 <option value="Акустическая гитара">Акустическая гитара</option>
+                <option value="Баян">Баян</option>
+                <option value="Укулеле">Укулеле</option>
+                <option value="Барабаны">Барабаны</option>
                 <option value="Саксофон">Саксофон</option>
                 <option value="Вокал">Вокал</option>
                 <option value="Пока не знаю">Пока не знаю</option>
@@ -930,7 +995,9 @@
                 <input
                   class="js-agree"
                   id="lead-agree"
+                  name="Согласие"
                   type="checkbox"
+                  value="yes"
                   required
                 />
                 <span>Согласен на <a href="privacy-policy.html">обработку персональных данных</a></span>
@@ -961,7 +1028,7 @@
 
         <nav class="footer-nav" aria-label="Навигация в футере">
           <a href="#top">Главная</a>
-          <a href="#programs">Направления</a>
+          <a href="#instruments">Инструменты</a>
           <a href="#teachers">Наставники</a>
           <a href="#reviews">Отзывы</a>
           <a href="#entry" data-form-default>Запись</a>

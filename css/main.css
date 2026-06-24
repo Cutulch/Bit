@@ -7,6 +7,7 @@
   --ink: #2d2529;
   --muted: #585156;
   --line: rgba(132, 18, 45, 0.12);
+  --brand-line-rgb: 132, 18, 45;
   --white: #ffffff;
   --brand: #8e0a29;
   --brand-dark: #6f001b;
@@ -21,6 +22,14 @@
   --max: 1240px;
   --pad: 24px;
   --shadow: 0 20px 60px rgba(17, 20, 28, 0.12);
+  --button-gradient: linear-gradient(180deg, #a80c31 0%, #78001d 100%);
+  --section-gradient-light-rose: linear-gradient(180deg, var(--section-light) 0%, var(--section-rose) 100%);
+  --section-gradient-rose-light: linear-gradient(180deg, var(--section-rose) 0%, var(--section-light) 100%);
+  --card-border: rgba(var(--brand-line-rgb), 0.09);
+  --panel-border: rgba(var(--brand-line-rgb), 0.08);
+  --control-border: rgba(var(--brand-line-rgb), 0.1);
+  --accent-border: rgba(var(--brand-line-rgb), 0.16);
+  --card-inset: inset 0 0 0 1px rgba(255, 255, 255, 0.48);
   --font-ui: "Manrope", "Montserrat", Arial, sans-serif;
   --font-display: "Iosevka Charon", "Courier New", monospace;
 }
@@ -271,7 +280,7 @@ button {
   display: grid;
   gap: 8px;
   padding: 14px;
-  border: 1px solid rgba(132, 18, 45, 0.1);
+  border: 1px solid var(--control-border);
   border-radius: var(--radius);
   background: rgba(255, 248, 247, 0.97);
   box-shadow: var(--shadow);
@@ -397,10 +406,7 @@ button {
 .hero__title {
   margin-bottom: 18px;
   color: var(--brand);
-  font-family: var(--font-display);
-  font-style: normal;
   font-size: clamp(4.2rem, 6.2vw, 6.25rem);
-  font-weight: 300;
   line-height: 0.95;
   letter-spacing: -4px;
 }
@@ -500,18 +506,14 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: 0 24px;
   border-radius: 999px;
+  color: var(--white);
   font-weight: 600;
+  background: var(--button-gradient);
+  box-shadow: 0 16px 24px rgba(155, 14, 48, 0.2), 0 9px 18px rgba(225, 81, 105, 0.28);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-}
-
-.hero-button,
-.form-button {
-  padding: 0 24px;
-  color: var(--white);
-  background: linear-gradient(180deg, #a80c31 0%, #78001d 100%);
-  box-shadow: 0 16px 24px rgba(155, 14, 48, 0.2), 0 9px 18px rgba(225, 81, 105, 0.28);
 }
 
 .hero-button {
@@ -570,14 +572,15 @@ button {
   border-radius: inherit;
 }
 
-.hero__programs {
+.hero__directions {
   position: relative;
   z-index: 2;
-  width: min(1030px, 100%);
+  width: min(1180px, 100%);
   margin: 50px auto 0;
+  scroll-margin-top: 112px;
 }
 
-.hero__programs-title {
+.hero__directions-title {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -590,8 +593,8 @@ button {
   line-height: 1;
 }
 
-.hero__programs-title::before,
-.hero__programs-title::after {
+.hero__directions-title::before,
+.hero__directions-title::after {
   content: "";
   width: 5px;
   height: 5px;
@@ -599,21 +602,29 @@ button {
   background: var(--brand-soft);
 }
 
-.instrument-grid {
+.direction-grid,
+.instruments-grid,
+.teachers-grid,
+.reviews-grid,
+.entry__grid,
+.entry__side {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 26px;
 }
 
-.instrument-card {
+.direction-grid {
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.direction-card {
   position: relative;
-  min-height: 146px;
+  min-height: 122px;
   display: grid;
   align-content: center;
   justify-items: center;
   gap: 10px;
-  padding: 18px 12px;
-  border: 1px solid rgba(132, 18, 45, 0.09);
+  padding: 15px 8px 16px;
+  border: 1px solid var(--card-border);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.46);
   color: var(--brand);
@@ -621,7 +632,7 @@ button {
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.42);
 }
 
-.instrument-card::after {
+.direction-card::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -633,17 +644,17 @@ button {
   transform: translateX(-50%);
 }
 
-.instrument-card__icon,
-.instrument-card svg {
-  width: 48px;
-  height: 48px;
+.direction-card__icon,
+.direction-card svg {
+  width: 40px;
+  height: 40px;
 }
 
-.instrument-card__icon {
+.direction-card__icon {
   object-fit: contain;
 }
 
-.instrument-card svg {
+.direction-card svg {
   fill: none;
   stroke: currentColor;
   stroke-linecap: round;
@@ -651,12 +662,13 @@ button {
   stroke-width: 1.55;
 }
 
-.instrument-card span {
-  max-width: 128px;
+.direction-card strong {
+  display: block;
+  max-width: 112px;
   color: #191417;
-  font-size: 0.92rem;
+  font-size: 0.84rem;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.18;
 }
 
 .section {
@@ -686,14 +698,40 @@ button {
   line-height: 1.05;
 }
 
-.programs {
+.instruments,
+.teachers,
+.reviews,
+.entry {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, var(--section-light) 0%, var(--section-rose) 100%);
 }
 
-.programs::before,
-.programs::after {
+.instruments {
+  background: var(--section-gradient-light-rose);
+}
+
+.instruments__shell,
+.teachers__shell,
+.reviews__shell,
+.entry__shell {
+  position: relative;
+  z-index: 1;
+}
+
+.instruments__heading,
+.teachers__heading,
+.reviews__heading,
+.entry__heading {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
+.instruments::before,
+.instruments::after,
+.teachers::before,
+.teachers::after,
+.reviews::before {
   content: "";
   position: absolute;
   z-index: 0;
@@ -703,102 +741,115 @@ button {
   opacity: 0.72;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  background-image: url("data:image/svg+xml,%3Csvg width='420' height='300' viewBox='0 0 420 300' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23eadbe0' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M-40 80C28 14 90 146 158 80C226 14 288 146 356 80C424 14 486 146 554 80'/%3E%3Cpath d='M-40 96C28 30 90 162 158 96C226 30 288 162 356 96C424 30 486 162 554 96'/%3E%3Cpath d='M-40 112C28 46 90 178 158 112C226 46 288 178 356 112C424 46 486 178 554 112'/%3E%3Cpath d='M-40 128C28 62 90 194 158 128C226 62 288 194 356 128C424 62 486 194 554 128'/%3E%3Cpath d='M-40 144C28 78 90 210 158 144C226 78 288 210 356 144C424 78 486 210 554 144'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-.programs::before {
+.instruments::before,
+.instruments::after,
+.teachers::before,
+.teachers::after {
+  background-image: url("../img/decor/wave-lines.svg");
+}
+
+.instruments::before,
+.instruments::after {
+  opacity: 0.72;
+}
+
+.instruments::before {
   top: 60px;
   left: -150px;
 }
 
-.programs::after {
+.instruments::after {
   right: -130px;
   bottom: 80px;
   transform: scaleX(-1);
 }
 
-.programs__shell {
-  position: relative;
-  z-index: 1;
-}
-
-.programs__heading {
+.instruments__heading {
   max-width: 820px;
   margin: 0 auto 34px;
-  text-align: center;
 }
 
-.programs__heading h2 {
+.instruments__heading h2,
+.teachers__heading h2,
+.reviews__heading h2,
+.entry__heading h2 {
   color: var(--brand);
   font-size: clamp(4.2rem, 7vw, 6.4rem);
   line-height: 0.92;
+}
+
+.instruments__heading h2,
+.teachers__heading h2,
+.reviews__heading h2 {
   text-transform: uppercase;
 }
 
-.programs__lead {
+.instruments__lead {
   max-width: 660px;
-  margin: 18px auto 0;
-  color: #555055;
-  font-size: 1.08rem;
-  line-height: 1.48;
 }
 
-.programs-note {
+.instruments-note,
+.teachers-note,
+.reviews-note {
   position: absolute;
   z-index: 1;
   color: var(--brand-soft);
   font-family: "Segoe UI Symbol", "Noto Music", var(--font-display);
-  font-size: 2.25rem;
   line-height: 1;
-  opacity: 0.8;
   pointer-events: none;
 }
 
-.programs-note--one {
+.instruments-note {
+  font-size: 2.25rem;
+  opacity: 0.8;
+}
+
+.instruments-note--one {
   top: 104px;
   left: calc(50% - 410px);
 }
 
-.programs-note--two {
+.instruments-note--two {
   top: 138px;
   right: calc(50% - 430px);
   font-size: 1.8rem;
 }
 
-.programs-note--three {
+.instruments-note--three {
   bottom: 118px;
   left: calc(50% + 410px);
   font-size: 1.6rem;
 }
 
-.program-grid {
-  display: grid;
+.instruments-grid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px;
 }
 
-.program-card {
+.instrument-card {
   position: relative;
   min-height: 284px;
   display: flex;
   flex-direction: column;
   padding: 24px 22px 26px;
-  border: 1px solid rgba(132, 18, 45, 0.09);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.54);
   color: var(--brand);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.48);
+  box-shadow: var(--card-inset);
   overflow: visible;
   transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
 }
 
-.program-card:hover {
+.instrument-card:hover {
   border-color: rgba(132, 18, 45, 0.18);
   box-shadow: 0 18px 42px rgba(132, 18, 45, 0.09);
   transform: translateY(-6px);
 }
 
-.program-card::before {
+.instrument-card::before {
   content: "";
   position: absolute;
   top: 78px;
@@ -808,7 +859,7 @@ button {
   background: linear-gradient(90deg, rgba(132, 18, 45, 0.06), rgba(132, 18, 45, 0.16), rgba(132, 18, 45, 0));
 }
 
-.program-card::after {
+.instrument-card::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -820,7 +871,7 @@ button {
   transform: translateX(-50%);
 }
 
-.program-card__top {
+.instrument-card__top {
   position: relative;
   display: flex;
   align-items: flex-start;
@@ -829,30 +880,30 @@ button {
   margin-bottom: 28px;
 }
 
-.program-card__icon {
+.instrument-card__icon {
   width: 58px;
   height: 58px;
   object-fit: contain;
   transition: transform 0.24s ease;
 }
 
-.program-card:hover .program-card__icon {
+.instrument-card:hover .instrument-card__icon {
   transform: translateY(-2px) rotate(-2deg);
 }
 
-.program-card__number {
+.instrument-card__number {
   min-width: 42px;
   height: 42px;
   display: inline-grid;
   place-items: center;
-  border: 1px solid rgba(132, 18, 45, 0.16);
+  border: 1px solid var(--accent-border);
   border-radius: 50%;
   color: var(--brand);
   font-size: 0.78rem;
   font-weight: 600;
 }
 
-.program-card h3 {
+.instrument-card h3 {
   margin-bottom: 10px;
   color: var(--brand);
   font-family: var(--font-display);
@@ -862,13 +913,13 @@ button {
   letter-spacing: 0;
 }
 
-.program-card p {
+.instrument-card p {
   color: #514b50;
   font-size: 0.94rem;
   line-height: 1.48;
 }
 
-.programs__cta {
+.instruments__cta {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -876,34 +927,23 @@ button {
   margin-top: 38px;
 }
 
-.programs__cta-line {
+.instruments__cta-line {
   width: min(190px, 18vw);
   height: 1px;
   background: linear-gradient(90deg, rgba(132, 18, 45, 0), rgba(132, 18, 45, 0.2), rgba(132, 18, 45, 0));
 }
 
-.programs__button {
+.instruments__button {
   min-width: 320px;
 }
 
 .teachers {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--section-rose) 0%, var(--section-light) 100%);
+  background: var(--section-gradient-rose-light);
 }
 
 .teachers::before,
 .teachers::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  width: 420px;
-  height: 300px;
-  pointer-events: none;
   opacity: 0.58;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-image: url("data:image/svg+xml,%3Csvg width='420' height='300' viewBox='0 0 420 300' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23eadbe0' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M-40 80C28 14 90 146 158 80C226 14 288 146 356 80C424 14 486 146 554 80'/%3E%3Cpath d='M-40 96C28 30 90 162 158 96C226 30 288 162 356 96C424 30 486 162 554 96'/%3E%3Cpath d='M-40 112C28 46 90 178 158 112C226 46 288 178 356 112C424 46 486 178 554 112'/%3E%3Cpath d='M-40 128C28 62 90 194 158 128C226 62 288 194 356 128C424 62 486 194 554 128'/%3E%3Cpath d='M-40 144C28 78 90 210 158 144C226 78 288 210 356 144C424 78 486 210 554 144'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .teachers::before {
@@ -917,30 +957,21 @@ button {
   transform: scaleX(-1);
 }
 
-.teachers__shell {
-  position: relative;
-  z-index: 1;
-}
-
 .teachers__heading {
   max-width: 850px;
   margin: 0 auto 36px;
-  text-align: center;
 }
 
 .teachers__heading .section-label {
   display: none;
 }
 
-.teachers__heading h2 {
-  color: var(--brand);
-  font-size: clamp(4.2rem, 7vw, 6.4rem);
-  line-height: 0.92;
-  text-transform: uppercase;
-}
-
 .teachers__lead {
   max-width: 650px;
+}
+
+.instruments__lead,
+.teachers__lead {
   margin: 18px auto 0;
   color: #555055;
   font-size: 1.08rem;
@@ -948,14 +979,8 @@ button {
 }
 
 .teachers-note {
-  position: absolute;
-  z-index: 1;
-  color: var(--brand-soft);
-  font-family: "Segoe UI Symbol", "Noto Music", var(--font-display);
   font-size: 2.25rem;
-  line-height: 1;
   opacity: 0.78;
-  pointer-events: none;
 }
 
 .teachers-note--one {
@@ -976,7 +1001,6 @@ button {
 }
 
 .teachers-grid {
-  display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 70px 24px;
   align-items: start;
@@ -990,10 +1014,10 @@ button {
   gap: 22px;
   margin-bottom: 58px;
   padding: 22px 22px 18px;
-  border: 1px solid rgba(132, 18, 45, 0.09);
+  border: 1px solid var(--card-border);
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.56);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.48);
+  box-shadow: var(--card-inset);
   overflow: visible;
 }
 
@@ -1017,7 +1041,7 @@ button {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  border: 1px solid rgba(132, 18, 45, 0.08);
+  border: 1px solid var(--panel-border);
   border-radius: 48% 52% 43% 57% / 34% 37% 63% 66%;
   background: #f2cfd3;
   box-shadow: 0 0 0 4px rgba(255, 248, 247, 0.96), 0 0 0 5px rgba(132, 18, 45, 0.1),
@@ -1279,7 +1303,7 @@ button {
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: linear-gradient(180deg, #a80c31 0%, #78001d 100%);
+  background: var(--button-gradient);
   color: var(--white);
   font-size: 0.96rem;
   font-weight: 500;
@@ -1294,61 +1318,29 @@ button {
 }
 
 .reviews {
-  position: relative;
-  overflow: hidden;
   background: linear-gradient(180deg, var(--section-light) 0%, #fff6f7 48%, var(--section-light) 100%);
 }
 
 .reviews::before {
-  content: "";
-  position: absolute;
   left: -160px;
   top: 92px;
-  z-index: 0;
-  width: 420px;
-  height: 300px;
-  pointer-events: none;
   opacity: 0.46;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-image: url("data:image/svg+xml,%3Csvg width='420' height='300' viewBox='0 0 420 300' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%23eadbe0' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M-40 80C28 14 90 146 158 80C226 14 288 146 356 80C424 14 486 146 554 80'/%3E%3Cpath d='M-40 96C28 30 90 162 158 96C226 30 288 162 356 96C424 30 486 162 554 96'/%3E%3Cpath d='M-40 112C28 46 90 178 158 112C226 46 288 178 356 112C424 46 486 178 554 112'/%3E%3Cpath d='M-40 128C28 62 90 194 158 128C226 62 288 194 356 128C424 62 486 194 554 128'/%3E%3C/g%3E%3C/svg%3E");
-}
-
-.reviews__shell {
-  position: relative;
-  z-index: 1;
+  background-image: url("../img/decor/wave-lines-short.svg");
 }
 
 .reviews__heading {
   max-width: 850px;
   margin: 0 auto 40px;
-  text-align: center;
-}
-
-.reviews__heading h2 {
-  color: var(--brand);
-  font-size: clamp(4.2rem, 7vw, 6.4rem);
-  line-height: 0.92;
-  text-transform: uppercase;
 }
 
 .reviews__heading p {
   max-width: 680px;
   margin: 18px auto 0;
-  color: #5d555a;
-  font-size: 1.06rem;
-  line-height: 1.5;
 }
 
 .reviews-note {
-  position: absolute;
-  z-index: 1;
-  color: var(--brand-soft);
-  font-family: "Segoe UI Symbol", "Noto Music", var(--font-display);
   font-size: 2.1rem;
-  line-height: 1;
   opacity: 0.72;
-  pointer-events: none;
 }
 
 .reviews-note--one {
@@ -1370,7 +1362,7 @@ button {
   gap: 18px;
   margin: 28px auto 0;
   padding: 16px 18px;
-  border: 1px solid rgba(132, 18, 45, 0.09);
+  border: 1px solid var(--card-border);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.62);
   box-shadow: 0 18px 44px rgba(132, 18, 45, 0.07);
@@ -1389,7 +1381,7 @@ button {
   display: inline-grid;
   place-items: center;
   border-radius: 999px;
-  background: linear-gradient(180deg, #a80c31 0%, #78001d 100%);
+  background: var(--button-gradient);
   color: var(--white);
   font-family: var(--font-display);
   font-size: 2.25rem;
@@ -1411,7 +1403,7 @@ button {
   align-items: center;
   justify-content: center;
   padding: 0 18px;
-  border: 1px solid rgba(132, 18, 45, 0.16);
+  border: 1px solid var(--accent-border);
   border-radius: 999px;
   color: var(--brand);
   font-size: 0.86rem;
@@ -1426,7 +1418,6 @@ button {
 }
 
 .reviews-grid {
-  display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
 }
@@ -1439,7 +1430,7 @@ button {
   gap: 24px;
   margin: 0;
   padding: 24px 20px 20px;
-  border: 1px solid rgba(132, 18, 45, 0.08);
+  border: 1px solid var(--panel-border);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.64);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.44);
@@ -1478,52 +1469,40 @@ button {
 }
 
 .entry {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--section-light) 0%, var(--section-rose) 100%);
-}
-
-.entry__shell {
-  position: relative;
-  z-index: 1;
+  background: var(--section-gradient-light-rose);
 }
 
 .entry__heading {
   max-width: 880px;
   margin: 0 auto 40px;
-  text-align: center;
-}
-
-.entry__heading h2 {
-  color: var(--brand);
-  font-size: clamp(4.2rem, 7vw, 6.4rem);
-  line-height: 0.92;
 }
 
 .entry__heading p:not(.section-label) {
   max-width: 680px;
   margin: 16px auto 0;
+}
+
+.reviews__heading p,
+.entry__heading p:not(.section-label) {
   color: #5d555a;
   font-size: 1.06rem;
   line-height: 1.5;
 }
 
 .entry__grid {
-  display: grid;
   grid-template-columns: minmax(0, 0.96fr) minmax(360px, 0.74fr);
   gap: 28px;
   align-items: start;
 }
 
 .entry__side {
-  display: grid;
   gap: 14px;
 }
 
 .entry__contacts,
 .entry-map,
 .lead-form {
-  border: 1px solid rgba(132, 18, 45, 0.08);
+  border: 1px solid var(--panel-border);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.68);
   box-shadow: 0 18px 54px rgba(132, 18, 45, 0.08);
@@ -1604,7 +1583,7 @@ button {
 .branch-switch button:hover:not(:disabled),
 .branch-switch button.is-active {
   border-color: rgba(132, 18, 45, 0.42);
-  background: linear-gradient(180deg, #a80c31 0%, #78001d 100%);
+  background: var(--button-gradient);
   color: var(--white);
   box-shadow: 0 10px 18px rgba(155, 14, 48, 0.16);
 }
@@ -1618,7 +1597,7 @@ button {
   display: block;
   width: 100%;
   height: 310px;
-  border: 1px solid rgba(132, 18, 45, 0.08);
+  border: 1px solid var(--panel-border);
   border-radius: 14px;
   background: #f8ecee;
   filter: saturate(0.9) contrast(0.98);
@@ -1643,7 +1622,7 @@ button {
 .lead-form textarea {
   width: 100%;
   min-height: 48px;
-  border: 1px solid rgba(132, 18, 45, 0.1);
+  border: 1px solid var(--control-border);
   border-radius: 999px;
   background: rgba(255, 248, 247, 0.8);
   color: var(--ink);
@@ -1710,7 +1689,7 @@ button {
   justify-content: space-between;
   gap: 14px;
   padding: 0 20px 0 16px;
-  border: 1px solid rgba(132, 18, 45, 0.1);
+  border: 1px solid var(--control-border);
   border-radius: 999px;
   background: rgba(255, 248, 247, 0.8);
   color: var(--ink);
@@ -1847,7 +1826,7 @@ button {
 .teacher-field__reset {
   min-height: 48px;
   padding: 0 14px;
-  border: 1px solid rgba(132, 18, 45, 0.16);
+  border: 1px solid var(--accent-border);
   border-radius: 999px;
   background: rgba(255, 240, 241, 0.76);
   color: var(--brand);
@@ -1926,7 +1905,7 @@ button {
 }
 
 .privacy-main {
-  background: linear-gradient(180deg, var(--section-light) 0%, var(--section-rose) 100%);
+  background: var(--section-gradient-light-rose);
 }
 
 .privacy-hero {
@@ -1974,7 +1953,7 @@ button {
 
 .privacy-summary,
 .privacy-card {
-  border: 1px solid rgba(132, 18, 45, 0.08);
+  border: 1px solid var(--panel-border);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.68);
   box-shadow: 0 18px 54px rgba(132, 18, 45, 0.08);
@@ -2071,7 +2050,7 @@ button {
 
 .privacy-table-wrap {
   overflow-x: auto;
-  border: 1px solid rgba(132, 18, 45, 0.09);
+  border: 1px solid var(--card-border);
   border-radius: 14px;
 }
 
@@ -2106,7 +2085,7 @@ button {
 .site-footer {
   padding: 48px var(--pad) 34px;
   color: var(--muted);
-  background: linear-gradient(180deg, var(--section-rose) 0%, var(--section-light) 100%);
+  background: var(--section-gradient-rose-light);
 }
 
 .site-footer__inner {
@@ -2158,7 +2137,7 @@ button {
   display: inline-flex;
   align-items: center;
   padding: 0 14px;
-  border: 1px solid rgba(132, 18, 45, 0.1);
+  border: 1px solid var(--control-border);
   border-radius: 999px;
   background: rgba(255, 248, 247, 0.72);
   color: #3c2930;
@@ -2289,11 +2268,11 @@ button {
     font-size: 1.7rem;
   }
 
-  .instrument-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .direction-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .program-grid {
+  .instruments-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -2379,22 +2358,19 @@ button {
     font-size: 2.35rem;
   }
 
-  .programs__heading h2,
+  .instruments__heading h2,
+  .teachers__heading h2,
   .reviews__heading h2,
   .entry__heading h2 {
     font-size: 4.4rem;
   }
 
-  .programs-note {
+  .instruments-note {
     opacity: 0.55;
   }
 
-  .program-grid {
+  .instruments-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .teachers__heading h2 {
-    font-size: 4.4rem;
   }
 
   .teachers-note {
@@ -2419,7 +2395,7 @@ button {
     width: 160px;
   }
 
-  .instrument-grid {
+  .direction-grid {
     gap: 16px;
   }
 
@@ -2512,9 +2488,6 @@ button {
   .hero-button {
     min-width: 0;
     width: 100%;
-  }
-
-  .hero-button {
     gap: 12px;
     font-size: 0.95rem;
   }
@@ -2523,27 +2496,26 @@ button {
     width: min(100%, 360px);
   }
 
-  .hero__programs-title {
-    justify-content: flex-start;
+  .hero__directions-title {
     font-size: 1.85rem;
   }
 
-  .instrument-grid {
+  .direction-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
 
-  .instrument-card {
+  .direction-card {
     min-height: 126px;
   }
 
-  .instrument-card__icon,
-  .instrument-card svg {
+  .direction-card__icon,
+  .direction-card svg {
     width: 42px;
     height: 42px;
   }
 
-  .instrument-card span {
+  .direction-card strong {
     font-size: 0.85rem;
   }
 
@@ -2552,66 +2524,45 @@ button {
     line-height: 1.12;
   }
 
-  .programs::before,
-  .programs::after,
-  .programs-note,
+  .instruments::before,
+  .instruments::after,
+  .instruments-note,
   .teachers::before,
   .teachers::after,
   .teachers-note {
     display: none;
   }
 
-  .programs__heading {
-    margin-bottom: 24px;
-    text-align: left;
-  }
-
-  .programs__heading h2,
+  .instruments__heading h2,
+  .teachers__heading h2,
+  .reviews__heading h2,
   .entry__heading h2 {
     font-size: 3.35rem;
     line-height: 0.96;
   }
 
-  .programs__lead {
-    margin-right: 0;
-    margin-left: 0;
-    font-size: 0.98rem;
-  }
-
+  .instruments__heading,
   .teachers__heading {
     margin-bottom: 24px;
-    text-align: left;
   }
 
-  .teachers__heading h2 {
-    font-size: 3.35rem;
-    line-height: 0.96;
-  }
-
-  .teachers__lead {
-    margin-right: 0;
-    margin-left: 0;
-    font-size: 0.98rem;
-  }
-
-  .program-grid,
-  .teachers-grid {
-    grid-template-columns: 1fr;
-  }
-
+  .instruments__heading,
+  .teachers__heading,
   .reviews__heading {
     text-align: left;
   }
 
-  .reviews__heading h2 {
-    font-size: 3.35rem;
-    line-height: 0.96;
-  }
-
+  .instruments__lead,
+  .teachers__lead,
   .reviews__heading p {
     margin-right: 0;
     margin-left: 0;
     font-size: 0.98rem;
+  }
+
+  .instruments-grid,
+  .teachers-grid {
+    grid-template-columns: 1fr;
   }
 
   .reviews__summary {
@@ -2628,30 +2579,30 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .program-card {
+  .instrument-card {
     min-height: auto;
     padding: 22px 20px 24px;
   }
 
-  .program-card__icon {
+  .instrument-card__icon {
     width: 52px;
     height: 52px;
   }
 
-  .program-card h3 {
+  .instrument-card h3 {
     font-size: 1.82rem;
   }
 
-  .programs__cta {
+  .instruments__cta {
     display: grid;
     gap: 14px;
   }
 
-  .programs__cta-line {
+  .instruments__cta-line {
     display: none;
   }
 
-  .programs__button {
+  .instruments__button {
     min-width: 0;
     width: 100%;
   }
